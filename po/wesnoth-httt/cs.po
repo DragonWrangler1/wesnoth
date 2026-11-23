@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Battle for Wesnoth\n"
 "Report-Msgid-Bugs-To: https://bugs.wesnoth.org/\n"
 "POT-Creation-Date: 2026-06-23 03:16 UTC\n"
-"PO-Revision-Date: 2026-05-23 13:59+0200\n"
+"PO-Revision-Date: 2026-09-08 18:42+0200\n"
 "Last-Translator: Michal Žejdl <lachim@emer.cz>\n"
 "Language-Team: Czech https://wiki.wesnoth.org/CzechTranslation\n"
 "Language: cs\n"
@@ -5303,7 +5303,7 @@ msgid ""
 "lies to the east."
 msgstr ""
 "Mohu vám říci, kde jsme. Tato řeka se jmenuje Longlier; jinak v našem "
-"prastarém jazyce též Arkan-thoria. Domov mých lidí leží na východ odsud."
+"prastarém jazyce též Arkan-Thoria. Domov mých lidí leží na východ odsud."
 
 #. [message]: speaker=Konrad
 #: data/campaigns/Heir_To_The_Throne_Classic/scenarios/18_A_Choice_Must_Be_Made.cfg:240
@@ -5388,7 +5388,7 @@ msgid ""
 "can not promise a perilless journey, but it is an option for you to "
 "consider, my lord."
 msgstr ""
-"Princi Konráde, nemusíš se vyhýbat Arkan-thorii. My mořští lidé tě můžeme "
+"Princi Konráde, nemusíš se vyhýbat Arkan-Thorii. My mořští lidé tě můžeme "
 "vést dolů po proudu. Tvá společnost v čele s námi přemůže každého nepřítele "
 "a dosáhne domova severních elfů mnohem dříve než kteroukoli suchou cestou. "
 "Nemohu slíbit putování bez nebezpečí, ale je to pro tebe možnost na zvážení, "
@@ -5865,7 +5865,7 @@ msgid ""
 "outwards. A giant cloud of dust billows out as the remnants of the lich’s "
 "once-mortal body disintegrate for the last time."
 msgstr ""
-"Poslední úder ničí licha, uvolňujíc ven malou tlakovou vlnu. A jak se zbytky "
+"Poslední rána ničí licha, uvolňujíc ven malou tlakovou vlnu. A jak se zbytky "
 "lichova kdysi smrtelného těla naposledy rozpadají, vyvalí se mračno prachu."
 
 #. [message]: speaker=narrator
@@ -5876,7 +5876,7 @@ msgid ""
 "strings cut. A cloud of dust billows outwards as the remnants of the lich’s "
 "once-mortal body disintegrate for the last time."
 msgstr ""
-"Poslední úder ničí licha, uvolňujíc ven malou tlakovou vlnu. Poslední z jeho "
+"Poslední rána ničí licha, uvolňujíc ven malou tlakovou vlnu. Poslední z jeho "
 "lokajů padá tiše k zemi jako loutka s přestřiženými provázky. A jak se "
 "zbytky lichova kdysi smrtelného těla naposledy rozpadají, vyvalí se mračno "
 "prachu."
@@ -5889,7 +5889,7 @@ msgid ""
 "dust billows out as the remnants of the lich’s once-mortal body disintegrate "
 "for the last time."
 msgstr ""
-"Poslední úder ničí licha, uvolňujíc ven malou tlakovou vlnu. Jeho lokajové "
+"Poslední rána ničí licha, uvolňujíc ven malou tlakovou vlnu. Jeho lokajové "
 "padají tiše k zemi jako loutky s přestřiženými provázky. A jak se zbytky "
 "lichova kdysi smrtelného těla naposledy rozpadají, vyvalí se mračno prachu."
 
@@ -7056,7 +7056,7 @@ msgid ""
 msgstr ""
 "Do zemí lidí přichází změny. Spěcháme do Elensirie hledat pomoc "
 "a nejrychlejší cesta, která se naskytla, byl riskantní přechod přes Arkan-"
-"thorii."
+"Thorii."
 
 #. [message]: speaker=Bona-Melodia
 #: data/campaigns/Heir_To_The_Throne_Classic/scenarios/20b_Underground_Channels.cfg:257
@@ -8063,7 +8063,7 @@ msgstr "Klan"
 #: data/campaigns/Heir_To_The_Throne_Classic/scenarios/23_Test_of_the_Clans.cfg:121
 #: data/campaigns/Heir_To_The_Throne_Classic/scenarios/24_Battle_for_Wesnoth.cfg:210
 msgid "Sir Alric"
-msgstr "Sir Alric"
+msgstr "Sir Alrik"
 
 #. [side]: type=Grand Knight, id=Sir Ruga
 #. [then]
@@ -8213,7 +8213,7 @@ msgid ""
 "If you reduce Lord Bayar, Sir Ruga, Sir Daryn, or Sir Alric to 0HP, you’ll "
 "receive a reward!"
 msgstr ""
-"Jestliže snížíš život lorda Bayara, sira Rugy, sira Daryna nebo sira Alrica "
+"Jestliže snížíš život lorda Bayara, sira Rugy, sira Daryna nebo sira Alrika "
 "na 0 bodů, tak dostaneš odměnu!"
 
 #. [message]: speaker=Bayar
@@ -8635,7 +8635,7 @@ msgstr "Jak se opovažuji? Jsem Delfador, nejvyšší představený rady arcimá
 #: data/campaigns/Heir_To_The_Throne_Classic/scenarios/24_Battle_for_Wesnoth.cfg:401
 msgid ""
 "... bearer of the staff of An-Usrukhar, guardian of the Book of Crelanu ..."
-msgstr "... nositel An-Ušrukarovi hole, strážce Krelanovy knihy..."
+msgstr "... nositel An-Ušrukarovy hole, strážce Krelanovy knihy..."
 
 #. [message]: speaker=Delfador
 #: data/campaigns/Heir_To_The_Throne_Classic/scenarios/24_Battle_for_Wesnoth.cfg:405
@@ -8847,7 +8847,7 @@ msgstr "žezlo"
 #. [attack]: type=cold
 #: data/campaigns/Heir_To_The_Throne_Classic/units/Dark_Queen.cfg:33
 msgid "raging blizzard"
-msgstr "běsnící blizard"
+msgstr "zuřivá vánice"
 
 #. [variation]
 #: data/campaigns/Heir_To_The_Throne_Classic/units/Dark_Queen.cfg:94

@@ -15,10 +15,11 @@
 
 #pragma once
 
-#include <cstring>
-
+#include <cassert>
 #include <cstddef>
+#include <cstring>
 #include <iosfwd>
+#include <limits>
 #include <memory>
 #include <string>
 #include <vector>
@@ -36,14 +37,16 @@ class string_span
 public:
 	string_span() : str_(nullptr), size_(0)
 	{}
-	string_span(const char* str, int size) : str_(str), size_(size)
+	string_span(const char* str, size_t size) : str_(str), size_(size)
 	{}
 	string_span(const char* str) : str_(str), size_(strlen(str))
 	{}
 	string_span(const char* begin, const char* end) : str_(begin), size_(end - begin)
 	{}
-	string_span(std::string str) : str_(str.c_str()), size_(str.size())
+	string_span(const std::string& str) : str_(str.c_str()), size_(str.size())
 	{}
+	// Disallow temporaries to avoid dangling references.
+	string_span(std::string&&) = delete;
 
 	typedef const char* const_iterator;
 	typedef const char* iterator;
@@ -77,8 +80,8 @@ public:
 		return !operator==(o);
 	}
 	bool operator<(const string_span& o) const {
-		const int len = size_ < o.size_ ? size_ : o.size_;
-		for(int n = 0; n < len; ++n) {
+		const size_t len = size_ < o.size_ ? size_ : o.size_;
+		for(size_t n = 0; n < len; ++n) {
 			if(str_[n] != o.str_[n]) {
 				if(str_[n] < o.str_[n]) {
 					return true;
@@ -94,7 +97,7 @@ public:
 	const char* begin() const { return str_; }
 	const char* end() const { return str_ + size_; }
 
-	int size() const { return size_; }
+	size_t size() const { return size_; }
 	bool empty() const { return size_ == 0; }
 	bool is_null() const { return str_ == nullptr; }
 
@@ -107,7 +110,7 @@ public:
 
 private:
 	const char* str_;
-	unsigned int size_;
+	size_t size_;
 };
 
 std::ostream& operator<<(std::ostream& o, const string_span& s);
@@ -215,7 +218,10 @@ private:
 		node_pos(int child_map_index, int child_list_index)
 		  : child_map_index(static_cast<unsigned short>(child_map_index)),
 		  child_list_index(static_cast<unsigned short>(child_list_index))
-		{}
+		{
+			assert(child_map_index >= 0 && child_map_index <= std::numeric_limits<unsigned short>::max());
+			assert(child_list_index >= 0 && child_list_index <= std::numeric_limits<unsigned short>::max());
+		}
 		unsigned short child_map_index;
 		unsigned short child_list_index;
 	};
@@ -247,6 +253,7 @@ public:
 	explicit document(string_span compressed_buf);
 	~document();
 	const char* dup_string(const char* str);
+	const char* dup_string(string_span str);
 	const char* esc_string(string_span str);
 	node& root() { if(!root_) { generate_root(); } return *root_; }
 	const node& root() const { if(!root_) { const_cast<document*>(this)->generate_root(); } return *root_; }

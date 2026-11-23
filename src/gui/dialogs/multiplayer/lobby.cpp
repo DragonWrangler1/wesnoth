@@ -37,10 +37,12 @@
 #include "gui/dialogs/multiplayer/match_history.hpp"
 
 #include "addon/client.hpp"
+#include "addon/manager.hpp"
 #include "addon/manager_ui.hpp"
 #include "chat_log.hpp"
 #include "desktop/open.hpp"
 #include "serialization/markup.hpp"
+#include "font/pango/escape.hpp"
 #include "formatter.hpp"
 #include "formula/string_utils.hpp"
 #include "preferences/preferences.hpp"
@@ -95,7 +97,8 @@ mp_lobby::mp_lobby(mp::lobby_info& info, wesnothd_connection& connection, int& j
 	, filter_game_presets_(false)
 	, filter_text_(nullptr)
 	, selected_game_id_()
-	, player_list_(std::bind(&mp_lobby::user_dialog_callback, this, std::placeholders::_1))
+	, player_list_(std::bind(&mp_lobby::user_dialog_callback, this, std::placeholders::_1),
+		std::bind(&mp_lobby::select_game_by_player, this, std::placeholders::_1))
 	, player_list_dirty_(true)
 	, gamelist_dirty_(true)
 	, last_lobby_update_()
@@ -395,7 +398,7 @@ widget_data mp_lobby::make_game_row_data(const mp::game_info& game)
 	item["label"] = game.vacant_slots > 0 ? markup::span_color(color_string, game.name) : game.name;
 	data.emplace("name", item);
 
-	item["label"] = markup::span_color(font::GRAY_COLOR, game.type_marker, markup::italic(scenario_text));
+	item["label"] = markup::span_color(font::GRAY_COLOR, game.type_marker, markup::italic(font::escape_text(scenario_text)));
 	data.emplace("scenario", item);
 
 	item["label"] = markup::span_color(color_string, game.status);
@@ -729,6 +732,27 @@ void mp_lobby::join_queue()
 	const std::vector<mp::queue_info>& queues = mp::get_server_queues();
 	if(queues.size() > static_cast<std::size_t>(queues_listbox->get_selected_row())) {
 		const mp::queue_info& queue = queues[queues_listbox->get_selected_row()];
+
+		std::vector<std::string> installed = installed_addons();
+		std::vector<mp::game_info::required_addon> missing;
+		for(const std::string& required : queue.required_addons) {
+			if(!utils::contains(installed, required)) {
+				mp::game_info::required_addon req;
+				req.addon_id = required;
+				req.message = required;
+				req.outcome = mp::game_info::addon_req::NEED_DOWNLOAD;
+				missing.emplace_back(req);
+			}
+		}
+
+		if(!missing.empty()) {
+			if(handle_addon_requirements_gui(missing, mp::game_info::addon_req::NEED_DOWNLOAD)) {
+				set_retval(RELOAD_CONFIG);
+			} else {
+				return;
+			}
+		}
+
 		mp::send_to_server(config{"join_server_queue", config{"queue_id", queue.id}});
 	} else {
 		ERR_LB << "Attempted to join queue but couldn't find queue info";
@@ -868,6 +892,9 @@ void mp_lobby::process_network_data(const config& data)
 						}
 						if(queue_update->has_attribute("current_players")){
 							info.current_players = utils::split_set(queue_update["current_players"].str());
+						}
+						if(queue_update->has_attribute("addons")){
+							info.required_addons = utils::split_set(queue_update["addons"].str());
 						}
 					} else {
 						continue;
@@ -1037,6 +1064,21 @@ void mp_lobby::refresh_lobby()
 	mp::send_to_server(config("refresh_lobby"));
 }
 
+void mp_lobby::select_game_by_player(const mp::user_info* info)
+{
+	if(info->game_id == 0 || info->game_id == selected_game_id_) {
+		return;
+	}
+
+	for(unsigned i = 0; i < lobby_info_.games().size(); ++i) {
+		if(lobby_info_.games()[i]->id == info->game_id) {
+			gamelistbox_->select_row(i);
+			update_selected_game();
+			break;
+		}
+	}
+}
+
 void mp_lobby::show_preferences_button_callback()
 {
 	gui2::dialogs::preferences_dialog::display();
@@ -1110,7 +1152,12 @@ void mp_lobby::user_dialog_callback(const mp::user_info* info)
 		chatbox_->switch_to_window(t);
 	}
 
-	selected_game_id_ = info->game_id;
+	// Only follow a player to their game if they are actually in one.
+	// Otherwise leave the current selection alone instead of losing it on refresh.
+	// GitHub #1197.
+	if(info->game_id != 0) {
+		selected_game_id_ = info->game_id;
+	}
 
 	// do not update here as it can cause issues with removing the widget
 	// from within it's event handler. Should get updated as soon as possible

@@ -3,13 +3,14 @@
 # Translators:
 # Fedor Khodkov <fkhodkov@gmail.com> 2009-2014
 # Artem Khrapov (kabachuha) <artemkhrapov2001@yandex.ru>, 2020-2024.
+# Alexandr Obolonkin (Alexinor) <obolonkin@proton.me>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: wesnoth-nr\n"
 "Report-Msgid-Bugs-To: https://bugs.wesnoth.org/\n"
-"POT-Creation-Date: 2026-06-23 03:16 UTC\n"
-"PO-Revision-Date: 2024-04-13 23:10+0300\n"
-"Last-Translator: Artem Khrapov <artemkhrapov2001@yandex.ru>\n"
+"POT-Creation-Date: 2026-08-03 03:45 UTC\n"
+"PO-Revision-Date: 2026-07-01 17:45+0500\n"
+"Last-Translator: Alexandr Obolonkin (Alexinor) <obolonkin@proton.me>\n"
 "Language-Team: https://wiki.wesnoth.org/RussianTranslation\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
@@ -17,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Poedit 3.0.1\n"
 
 #. [campaign]: id=Northern_Rebirth
 #: data/campaigns/Northern_Rebirth/_main.cfg:9
@@ -1022,68 +1023,46 @@ msgstr "Уничтожьте их!"
 
 #. [message]: speaker=Tallin
 #: data/campaigns/Northern_Rebirth/scenarios/02_01_Infested_Caves.cfg:548
-#, fuzzy
-#| msgid ""
-#| "Hey look, it’s an ancient door. It seems the trolls were too stupid to "
-#| "figure out how to open it."
 msgid "An ancient gate... it seems the trolls were unable to open it."
-msgstr ""
-"Эй, гляньте, старинная дверь. Похоже, у этих троллей не хватило ума "
-"догадаться, как её открыть."
+msgstr "Древние врата... похоже, троллям не удалось их открыть."
 
 #. [message]: speaker=unit
 #: data/campaigns/Northern_Rebirth/scenarios/02_01_Infested_Caves.cfg:554
-#, fuzzy
-#| msgid ""
-#| "Hey look, it’s an ancient door. It seems the trolls were too stupid to "
-#| "figure out how to open it."
 msgid ""
 "Hey look, it’s an ancient gate. It seems the trolls were too stupid to "
 "figure out how to open it."
 msgstr ""
-"Эй, гляньте, старинная дверь. Похоже, у этих троллей не хватило ума "
-"догадаться, как её открыть."
+"Эй, гляньте, древние врата! Похоже, у этих троллей не хватило ума "
+"догадаться, как их открыть."
 
 #. [message]: speaker=Tallin
 #: data/campaigns/Northern_Rebirth/scenarios/02_01_Infested_Caves.cfg:571
-#, fuzzy
-#| msgid ""
-#| "Hey look, it’s an ancient door. It seems the skeletons were too stupid to "
-#| "find out how to open it."
 msgid "An ancient gate... it seems the skeletons did not bother opening it."
-msgstr ""
-"Эй, гляньте, старинная дверь. Похоже, у этих скелетов не хватило ума "
-"догадаться, как её открыть."
+msgstr "Древние врата... похоже, скелеты не потрудились их открыть."
 
 #. [message]: speaker=unit
 #: data/campaigns/Northern_Rebirth/scenarios/02_01_Infested_Caves.cfg:577
-#, fuzzy
-#| msgid ""
-#| "Hey look, it’s an ancient door. It seems the skeletons were too stupid to "
-#| "find out how to open it."
 msgid ""
 "Hey look, it’s an ancient gate. It seems the skeletons were too stupid to "
 "find out how to open it."
 msgstr ""
-"Эй, гляньте, старинная дверь. Похоже, у этих скелетов не хватило ума "
-"догадаться, как её открыть."
+"Эй, гляньте, древние врата! Похоже, у этих скелетов не хватило ума "
+"догадаться, как их открыть."
 
 #. [message]: speaker=Tallin
 #: data/campaigns/Northern_Rebirth/scenarios/02_01_Infested_Caves.cfg:594
-#, fuzzy
-#| msgid "Well, let’s see what’s behind it."
 msgid "Let’s see what lies behind it..."
-msgstr "Ну-ну, посмотрим, что там за ней."
+msgstr "Ну-ну, посмотрим, что там за ними..."
 
 #. [message]: speaker=Tallin
 #: data/campaigns/Northern_Rebirth/scenarios/02_01_Infested_Caves.cfg:599
 msgid "Ugh... It’s stuck. I’ll have to kick it down then."
-msgstr ""
+msgstr "Уф... Застряли. Придётся их выбить."
 
 #. [message]: speaker=Tallin
 #: data/campaigns/Northern_Rebirth/scenarios/02_01_Infested_Caves.cfg:605
 msgid "Well, let’s see what’s behind it."
-msgstr "Ну-ну, посмотрим, что там за ней."
+msgstr "Ну-ну, посмотрим, что там за ними."
 
 #. [message]: speaker=unit
 #: data/campaigns/Northern_Rebirth/scenarios/02_01_Infested_Caves.cfg:610
@@ -1094,10 +1073,8 @@ msgstr ""
 
 #. [message]: speaker=Tallin
 #: data/campaigns/Northern_Rebirth/scenarios/02_01_Infested_Caves.cfg:615
-#, fuzzy
-#| msgid "Well, just kick it down then."
 msgid "Just kick it down then."
-msgstr "Ну так выбей её."
+msgstr "Ну так выбей их."
 
 #. [message]: speaker=unit
 #: data/campaigns/Northern_Rebirth/scenarios/02_01_Infested_Caves.cfg:620
@@ -1107,32 +1084,28 @@ msgstr "... Хорошо."
 #. [message]: speaker=narrator
 #: data/campaigns/Northern_Rebirth/scenarios/02_01_Infested_Caves.cfg:657
 msgid "The old gate opens, revealing a narrow tunnel."
-msgstr ""
+msgstr "Старые ворота открываются, и перед вами предстаёт узкий туннель."
 
 #. [message]: speaker=Tallin
 #: data/campaigns/Northern_Rebirth/scenarios/02_01_Infested_Caves.cfg:683
 msgid "Another gate... I guess I’ll kick it down like the other one."
-msgstr ""
+msgstr "Ещё одни ворота... Придётся их выбить, как и предыдущие."
 
 #. [message]: speaker=unit
 #: data/campaigns/Northern_Rebirth/scenarios/02_01_Infested_Caves.cfg:689
-#, fuzzy
-#| msgid "On the end of the passage is another door. I try to open it."
 msgid "On the end of the passage is another gate. I will try to open it."
-msgstr "В конце прохода ещё одна дверь. Попробую её открыть."
+msgstr "В конце прохода ещё одни ворота. Попробую их открыть."
 
 #. [message]: speaker=Tallin
 #: data/campaigns/Northern_Rebirth/scenarios/02_01_Infested_Caves.cfg:703
 msgid "Another one. I’ll kick this one down too."
-msgstr ""
+msgstr "Ещё одни. И эти я тоже выбью."
 
 #. [message]: speaker=unit
 #: data/campaigns/Northern_Rebirth/scenarios/02_01_Infested_Caves.cfg:709
-#, fuzzy
-#| msgid "Here is a similar door as the one before. I try to open it."
 msgid "Here is a similar gate to the one before. I will try to open it."
 msgstr ""
-"Здесь дверь, очень похожа на ту, что мы видели раньше. Попробую её открыть."
+"Здесь врата, очень похожие на те, что мы видели раньше. Попробую их открыть."
 
 #. [message]: speaker=Tallin
 #: data/campaigns/Northern_Rebirth/scenarios/02_01_Infested_Caves.cfg:750
@@ -1140,6 +1113,8 @@ msgid ""
 "Hmm... the wall here looks very thin and damaged. Let’s bring it down, it "
 "could offer us a faster way to navigate these caves."
 msgstr ""
+"Хм... стена здесь выглядит очень хлипкой и повреждённой. Давайте разрушим "
+"её, это ускорит наше прохождение этих пещер."
 
 #. [message]: speaker=unit
 #: data/campaigns/Northern_Rebirth/scenarios/02_01_Infested_Caves.cfg:756
@@ -1147,18 +1122,18 @@ msgid ""
 "Look, the wall here seems to be very thin and damaged. We might be able to "
 "bring it down."
 msgstr ""
+"Смотрите, стена здесь выглядит очень хлипкой и повреждённой. Возможно, мы "
+"сможем её снести."
 
 #. [message]: speaker=Tallin
 #: data/campaigns/Northern_Rebirth/scenarios/02_01_Infested_Caves.cfg:760
 msgid "Do it. It can give us a faster way to traverse through these caves."
-msgstr ""
+msgstr "Вперёд. Это позволит нам быстрее перемещаться по этим пещерам."
 
 #. [message]: speaker=narrator
 #: data/campaigns/Northern_Rebirth/scenarios/02_01_Infested_Caves.cfg:780
-#, fuzzy
-#| msgid "A large section of wall crumbles away."
 msgid "A large section of the wall collapses."
-msgstr "Рассыпалась большая секция стены."
+msgstr "Большая секция стены рассыпается."
 
 #. [message]: role=Supporter
 #: data/campaigns/Northern_Rebirth/scenarios/02_01_Infested_Caves.cfg:790
@@ -1468,18 +1443,12 @@ msgstr ""
 
 #. [message]: speaker=Hamel
 #: data/campaigns/Northern_Rebirth/scenarios/02_02_Meeting_With_Dwarves.cfg:116
-#, fuzzy
-#| msgid ""
-#| "Thank you, human. And you, Camerin. It is likewise a great relief to see "
-#| "that our allies of old have managed to break their bonds, and live as "
-#| "free men once again."
 msgid ""
 "Thank you, human. It is likewise a great relief to see that our allies of "
 "old have managed to break their bonds, and live as free men once again."
 msgstr ""
-"Благодарю тебя, человек. И тебя, Камерин. Это большая радость - видеть, что "
-"наши старые союзники сумели сломать свои кандалы, и что они снова свободные "
-"люди."
+"Благодарю тебя, человек. Это большая радость - видеть, что наши старые "
+"союзники сумели сломать свои кандалы, и что они снова свободные люди."
 
 #. [message]: speaker=Tallin
 #: data/campaigns/Northern_Rebirth/scenarios/02_02_Meeting_With_Dwarves.cfg:123
@@ -2656,7 +2625,7 @@ msgstr "И не говорите."
 #. [message]: speaker=Abhai
 #: data/campaigns/Northern_Rebirth/scenarios/05a_01_The_Pursuit.cfg:1029
 msgid "Be careful companions! There was a drake in this cage!"
-msgstr ""
+msgstr "Будьте осторожны, друзья! В клетке был дрейк!"
 
 #. [message]: speaker=unit
 #: data/campaigns/Northern_Rebirth/scenarios/05a_01_The_Pursuit.cfg:1035
@@ -2675,10 +2644,6 @@ msgstr "(<i>Скулит</i>)"
 
 #. [message]: speaker=unit
 #: data/campaigns/Northern_Rebirth/scenarios/05a_01_The_Pursuit.cfg:1052
-#, fuzzy
-#| msgid ""
-#| "Bright Gods, such a fierce creature whimpering! What the heck have they "
-#| "done to it?"
 msgid ""
 "Bright Gods, such a fierce creature whimpering! What in the world have they "
 "done to it?"
@@ -2704,7 +2669,7 @@ msgstr "Не знаю, посмотрим, умеет ли оно разгова
 #. [message]: speaker=Abhai
 #: data/campaigns/Northern_Rebirth/scenarios/05a_01_The_Pursuit.cfg:1086
 msgid "Have no fear, drake. We have no intentions to hurt you."
-msgstr ""
+msgstr "Не страшись, дрейк. Мы не собираемся причинять тебе вред."
 
 #. [message]: speaker=unit
 #: data/campaigns/Northern_Rebirth/scenarios/05a_01_The_Pursuit.cfg:1092
@@ -2728,10 +2693,6 @@ msgstr "Не «оно», а «он», и да — они и правда оче�
 
 #. [message]: speaker=unit
 #: data/campaigns/Northern_Rebirth/scenarios/05a_01_The_Pursuit.cfg:1114
-#, fuzzy
-#| msgid ""
-#| "Hush, I am trying to talk to him. Nope, we’ll never hurt you. But if you "
-#| "want to you can hurt some skeletons."
 msgid ""
 "Hush, I am trying to talk to him. Nope, we’ll never hurt you. But if you "
 "want to, you can hurt some skeletons."
@@ -3206,21 +3167,18 @@ msgstr "(<i>Закатывает глаза</i>) О, как же опасна ж
 #. Krash has landed in one of the hexes of a small underground lake
 #: data/campaigns/Northern_Rebirth/scenarios/05a_01_The_Pursuit.cfg:2043
 msgid "Wet."
-msgstr ""
+msgstr "Мокро."
 
 #. [message]: speaker=unit
 #: data/campaigns/Northern_Rebirth/scenarios/05a_01_The_Pursuit.cfg:2049
-#, fuzzy
-#| msgid "Hey, an underground lake."
 msgid "An underground lake."
-msgstr "Эге, подземное озеро."
+msgstr "Подземное озеро."
 
 #. [message]: speaker=Krash
 #: data/campaigns/Northern_Rebirth/scenarios/05a_01_The_Pursuit.cfg:2074
 #, fuzzy
-#| msgid "Monsters"
 msgid "Monster! Kill!"
-msgstr "Монстры"
+msgstr "Монстр! Убейте его!"
 
 #. [message]: speaker=unit
 #: data/campaigns/Northern_Rebirth/scenarios/05a_01_The_Pursuit.cfg:2080
@@ -3279,10 +3237,8 @@ msgstr "Кто вы, что смеете ступать в этих туннел
 
 #. [message]: speaker=Tallin
 #: data/campaigns/Northern_Rebirth/scenarios/05a_01_The_Pursuit.cfg:2157
-#, fuzzy
-#| msgid "Tallin"
 msgid "I am Tallin."
-msgstr "Таллин"
+msgstr "Я — Таллин"
 
 #. [message]: speaker=unit
 #: data/campaigns/Northern_Rebirth/scenarios/05a_01_The_Pursuit.cfg:2163
@@ -3421,23 +3377,23 @@ msgstr "Великолепно! Вперёд, парни!"
 #. [message]: speaker=Krash
 #: data/campaigns/Northern_Rebirth/scenarios/05a_01_The_Pursuit.cfg:2269
 msgid "Corpse here... It stinks."
-msgstr ""
+msgstr "Здесь труп... Он воняет."
 
 #. [message]: speaker=unit
 #: data/campaigns/Northern_Rebirth/scenarios/05a_01_The_Pursuit.cfg:2275
 msgid "Ugh, a corpse. And it — (<i>gags</i>) — reeks!"
-msgstr "Тьфу, труп. И он — (<i>умехается</i>) — воняет!"
+msgstr "Тьфу, труп. И он — (<i>отрыгивает</i>) — воняет!"
 
 #. [message]: speaker=Abhai
 #: data/campaigns/Northern_Rebirth/scenarios/05a_01_The_Pursuit.cfg:2296
 msgid ""
 "Yet more bodies... I’ve noticed them drifting down the river as of late."
-msgstr ""
+msgstr "Ещё больше тел... Я видел, как их несёт течением вниз по реке."
 
 #. [message]: speaker=Krash
 #: data/campaigns/Northern_Rebirth/scenarios/05a_01_The_Pursuit.cfg:2308
 msgid "More bodies. Float down river?"
-msgstr ""
+msgstr "Ещё трупы. Плывут вниз по реке?"
 
 #. [message]: speaker=unit
 #: data/campaigns/Northern_Rebirth/scenarios/05a_01_The_Pursuit.cfg:2314
@@ -3450,15 +3406,14 @@ msgstr ""
 
 #. [message]: speaker=Abhai
 #: data/campaigns/Northern_Rebirth/scenarios/05a_01_The_Pursuit.cfg:2338
-#, fuzzy
-#| msgid "(<i>Sigh</i>) There doesn’t seem to be anything down this tunnel."
 msgid "There doesn’t seem to be anything this way other than another body."
-msgstr "(<i>Вздыхает</i>) Похоже, в конце этого туннеля ничегошеньки нету."
+msgstr "Похоже, в конце этого туннеля кроме очередного трупа ничего нет."
 
 #. [message]: speaker=Krash
 #: data/campaigns/Northern_Rebirth/scenarios/05a_01_The_Pursuit.cfg:2350
+#, fuzzy
 msgid "Grrr... Cold. Wet. Mad."
-msgstr ""
+msgstr "Гррр... Холодно. Мокро."
 
 #. [message]: speaker=unit
 #: data/campaigns/Northern_Rebirth/scenarios/05a_01_The_Pursuit.cfg:2356
@@ -3610,7 +3565,7 @@ msgstr ""
 #. [message]: speaker=Malifor
 #: data/campaigns/Northern_Rebirth/scenarios/05a_01_The_Pursuit.cfg:2850
 msgid "HAHAHAHA, THAT WEAPON CANNOT HARM ME!"
-msgstr ""
+msgstr "ХА-ХА-ХА-ХА, ЭТИМ ОРУЖИЕМ МЕНЯ НЕ ПОРАНИТЬ!"
 
 #. [message]: speaker=unit
 #: data/campaigns/Northern_Rebirth/scenarios/05a_01_The_Pursuit.cfg:2855
@@ -3630,12 +3585,12 @@ msgstr "Тьфу ты, как же его всё-таки убить? Это о�
 #. [message]: speaker=Malifor
 #: data/campaigns/Northern_Rebirth/scenarios/05a_01_The_Pursuit.cfg:2880
 msgid "YOUR WEAPONS CANNOT HARM ME, FOOLS!"
-msgstr ""
+msgstr "ВАШИМИ КЛИНКАМИ МЕНЯ НЕ СЛОМИТЬ, ГЛУПЦЫ!"
 
 #. [message]: speaker=Tallin
 #: data/campaigns/Northern_Rebirth/scenarios/05a_01_The_Pursuit.cfg:2885
 msgid "We’ll have to try something else. Perhaps magic will help."
-msgstr ""
+msgstr "Придётся попробовать что-нибудь другое. Возможно, поможет магия."
 
 #. [message]: speaker=Malifor
 #: data/campaigns/Northern_Rebirth/scenarios/05a_01_The_Pursuit.cfg:2895
@@ -3655,23 +3610,25 @@ msgstr "Давайте испробуем на нем что-нибудь дру
 #. [message]: speaker=Malifor
 #: data/campaigns/Northern_Rebirth/scenarios/05a_01_The_Pursuit.cfg:2915
 msgid "HAHAHAHA, FOOL! THE COLD IS MY DOMAIN!"
-msgstr ""
+msgstr "ХА-ХА-ХА-ХА, ГЛУПЕЦ! ХОЛОД — МОЯ СТИХИЯ!"
 
 #. [message]: speaker=Tallin
 #: data/campaigns/Northern_Rebirth/scenarios/05a_01_The_Pursuit.cfg:2920
 msgid "I suppose we should’ve known better than to try freezing a Lich."
-msgstr ""
+msgstr "Полагаю, нам не следовало пытаться заморозить Лича."
 
 #. [message]: speaker=Malifor
 #: data/campaigns/Northern_Rebirth/scenarios/05a_01_The_Pursuit.cfg:2930
 msgid "FOOLS! I FREED MYSELF OF WEAKNESS LONG AGO!"
-msgstr ""
+msgstr "ГЛУПЦЫ! Я ОСВОБОДИЛСЯ ОТ СЛАБОСТИ ДАВНЫМ ДАВНО!"
 
 #. [message]: speaker=Tallin
 #: data/campaigns/Northern_Rebirth/scenarios/05a_01_The_Pursuit.cfg:2935
 msgid ""
 "Even arcane weapons have no effect on him! We need an expert in white magic."
 msgstr ""
+"На него не действует даже магическое оружие! Нам нужен эксперт по белой "
+"магии."
 
 #. [message]: speaker=Malifor
 #: data/campaigns/Northern_Rebirth/scenarios/05a_01_The_Pursuit.cfg:2950
@@ -3836,12 +3793,12 @@ msgid "Galim"
 msgstr "Галим"
 
 #. [message]: speaker=Tallin
-#: data/campaigns/Northern_Rebirth/scenarios/05a_02_Dealings.cfg:135
+#: data/campaigns/Northern_Rebirth/scenarios/05a_02_Dealings.cfg:138
 msgid "It is well, Hamel. Our people prosper."
 msgstr "Я доволен, Хамель. Наш народ процветает."
 
 #. [message]: speaker=Hamel
-#: data/campaigns/Northern_Rebirth/scenarios/05a_02_Dealings.cfg:140
+#: data/campaigns/Northern_Rebirth/scenarios/05a_02_Dealings.cfg:143
 msgid ""
 "Aye. Word ha’ spread, and dwarves who had been living rough in the wilds for "
 "fear of the orcs have been coming to join us. Thanks to you, Tallin, Knalga "
@@ -3852,7 +3809,7 @@ msgstr ""
 "вновь!"
 
 #. [message]: speaker=Galim
-#: data/campaigns/Northern_Rebirth/scenarios/05a_02_Dealings.cfg:145
+#: data/campaigns/Northern_Rebirth/scenarios/05a_02_Dealings.cfg:148
 msgid ""
 "We have cleared the connecting tunnels from here to the old keep as well as "
 "other parts o’ Knalga. It is slow and dangerous work, mostly due to the "
@@ -3863,7 +3820,7 @@ msgstr ""
 "Малифора стало полегче."
 
 #. [message]: speaker=Hamel
-#: data/campaigns/Northern_Rebirth/scenarios/05a_02_Dealings.cfg:150
+#: data/campaigns/Northern_Rebirth/scenarios/05a_02_Dealings.cfg:153
 msgid ""
 "Indeed. The lich’s skeletons were fighting the trolls, but when you "
 "destroyed him, they all just fell apart. So, there are many tunnels that are "
@@ -3874,13 +3831,13 @@ msgstr ""
 "лишь груды старых костей."
 
 #. [message]: speaker=Tallin
-#: data/campaigns/Northern_Rebirth/scenarios/05a_02_Dealings.cfg:155
+#: data/campaigns/Northern_Rebirth/scenarios/05a_02_Dealings.cfg:158
 msgid "Great! How about the weapons and armor?"
 msgstr "Славно! Что с оружием и доспехами?"
 
 #. [message]: speaker=Hamel
 #. As you can see, Tallin there are a lot of them ready to be born into battle. Some of us dwarves are experts in the sword, mace, and bow and can aid your veterans in teaching others.
-#: data/campaigns/Northern_Rebirth/scenarios/05a_02_Dealings.cfg:161
+#: data/campaigns/Northern_Rebirth/scenarios/05a_02_Dealings.cfg:164
 #, fuzzy
 #| msgid ""
 #| "As ye ken see, Tallin, there be muckle heaps o’ them, all ready to be "
@@ -3897,7 +3854,7 @@ msgstr ""
 "управляться."
 
 #. [message]: speaker=Tallin
-#: data/campaigns/Northern_Rebirth/scenarios/05a_02_Dealings.cfg:166
+#: data/campaigns/Northern_Rebirth/scenarios/05a_02_Dealings.cfg:169
 msgid ""
 "I didn’t know you dwarves knew swordplay. I thought you all fought with "
 "axes, hammers or those thunder weapons."
@@ -3906,7 +3863,7 @@ msgstr ""
 "топорами, молотами и этими громовыми шутками."
 
 #. [message]: speaker=Hamel
-#: data/campaigns/Northern_Rebirth/scenarios/05a_02_Dealings.cfg:171
+#: data/campaigns/Northern_Rebirth/scenarios/05a_02_Dealings.cfg:174
 msgid ""
 "Aye, it’s true we do prefer our axes and hammers, but then again, we make "
 "swords. We couldna’ claim to be expert weaponsmiths wi’out kenning how to "
@@ -3917,7 +3874,7 @@ msgstr ""
 "управиться с оружием, что сами же и куём!"
 
 #. [message]: speaker=Hamel
-#: data/campaigns/Northern_Rebirth/scenarios/05a_02_Dealings.cfg:176
+#: data/campaigns/Northern_Rebirth/scenarios/05a_02_Dealings.cfg:179
 msgid ""
 "There are some dwarves out there that are bonny fighters wi’ a sword as any "
 "ye are like to meet. Belike with bows, maces and any other weapons we "
@@ -3928,7 +3885,7 @@ msgstr ""
 "которое мы делаем."
 
 #. [message]: speaker=Tallin
-#: data/campaigns/Northern_Rebirth/scenarios/05a_02_Dealings.cfg:181
+#: data/campaigns/Northern_Rebirth/scenarios/05a_02_Dealings.cfg:184
 msgid ""
 "That’s great! What is the price of your weapons? We have gathered much gold "
 "from Malifor’s treasury and will be able to pay you generously."
@@ -3937,7 +3894,7 @@ msgstr ""
 "сокровищницы — так что мы сможем щедро вам заплатить."
 
 #. [message]: speaker=Galim
-#: data/campaigns/Northern_Rebirth/scenarios/05a_02_Dealings.cfg:186
+#: data/campaigns/Northern_Rebirth/scenarios/05a_02_Dealings.cfg:189
 msgid ""
 "Price?! Don’t insult us, Tallin. Ye have done great things to help the "
 "dwarves — it’s because of you that we ha’ made a start rebuilding Knalga in "
@@ -3947,13 +3904,13 @@ msgstr ""
 "именно благодаря тебе мы начали возрождать Кналга. Не говори нам о цене."
 
 #. [message]: speaker=Tallin
-#: data/campaigns/Northern_Rebirth/scenarios/05a_02_Dealings.cfg:191
+#: data/campaigns/Northern_Rebirth/scenarios/05a_02_Dealings.cfg:194
 msgid "But don’t you need the gold to help rebuild Knalga? We have plenty."
 msgstr ""
 "Но разве вам не нужно золото, чтобы отстроить Кналга заново? У нас его полно."
 
 #. [message]: speaker=Hamel
-#: data/campaigns/Northern_Rebirth/scenarios/05a_02_Dealings.cfg:196
+#: data/campaigns/Northern_Rebirth/scenarios/05a_02_Dealings.cfg:199
 msgid ""
 "Tallin, Knalga was an extremely rich nation. Malifor’s treasury is hardly a "
 "fraction of the riches that we will find, and are finding every day now. So "
@@ -3965,17 +3922,17 @@ msgstr ""
 "Гномьи Врата."
 
 #. [message]: speaker=Tallin
-#: data/campaigns/Northern_Rebirth/scenarios/05a_02_Dealings.cfg:201
+#: data/campaigns/Northern_Rebirth/scenarios/05a_02_Dealings.cfg:204
 msgid "Thank you, Hamel."
 msgstr "Благодарю Вас, Хамель."
 
 #. [message]: speaker=Hamel
-#: data/campaigns/Northern_Rebirth/scenarios/05a_02_Dealings.cfg:206
+#: data/campaigns/Northern_Rebirth/scenarios/05a_02_Dealings.cfg:209
 msgid "Pahhh, thank <i>you</i>!"
 msgstr "Ха-ха, благодари <i>себя</i>!"
 
 #. [message]: speaker=Hamel
-#: data/campaigns/Northern_Rebirth/scenarios/05a_02_Dealings.cfg:211
+#: data/campaigns/Northern_Rebirth/scenarios/05a_02_Dealings.cfg:214
 msgid ""
 "And Tallin, one more thing, I have been leading our people into battle for "
 "many years now. As a young dwarf I was trained in the arts of leadership and "
@@ -3986,7 +3943,7 @@ msgstr ""
 "узнать одну вещь..."
 
 #. [message]: speaker=Hamel
-#: data/campaigns/Northern_Rebirth/scenarios/05a_02_Dealings.cfg:216
+#: data/campaigns/Northern_Rebirth/scenarios/05a_02_Dealings.cfg:219
 msgid ""
 "I know you’re impressive wi’ a pitchfork, and you are not half bad with a "
 "sword when you choose to use one. But there skills beyond swingin’ a weapon "
@@ -3997,12 +3954,12 @@ msgstr ""
 "махать оружием."
 
 #. [message]: speaker=Tallin
-#: data/campaigns/Northern_Rebirth/scenarios/05a_02_Dealings.cfg:221
+#: data/campaigns/Northern_Rebirth/scenarios/05a_02_Dealings.cfg:224
 msgid "I would be honored, Lord Hamel."
 msgstr "Это честь для меня, Лорд Хамель."
 
 #. [message]: speaker=Hamel
-#: data/campaigns/Northern_Rebirth/scenarios/05a_02_Dealings.cfg:226
+#: data/campaigns/Northern_Rebirth/scenarios/05a_02_Dealings.cfg:229
 msgid ""
 "Ahhhh, quit with the formality, me lad. Now, first things first. One of the "
 "most important things about being a leader is..."
@@ -7453,8 +7410,8 @@ msgid ""
 "... But... there is... one thing... we... could do. We... managed to... "
 "recover the gold... Sisal... took it and... retreated south..."
 msgstr ""
-"... Но... кое-что... нам... удалось. Мы... смогли... вернуть "
-"золото...Сизаль... взяла его и... отступила на юг..."
+"... Но... кое-что... нам... удалось. Мы... смогли... вернуть золото..."
+"Сизаль... взяла его и... отступила на юг..."
 
 #. [story]
 #: data/campaigns/Northern_Rebirth/scenarios/12a_Get_the_Gold.cfg:60

@@ -23,6 +23,7 @@
 #include "picture.hpp"
 #include "preferences/preferences.hpp"
 #include "sdl/utils.hpp"
+#include "video.hpp"
 
 #include <boost/logic/tribool.hpp>
 
@@ -44,38 +45,24 @@ struct cursor_data
 	int hot_y{0};
 
 	boost::tribool is_color{boost::indeterminate};
+	int scale{0};
 
 	using cursor_ptr = std::unique_ptr<SDL_Cursor, void(*)(SDL_Cursor*)>;
 	cursor_ptr cursor{nullptr, SDL_DestroyCursor};
 };
 
-//
 // Array with each available cursor type.
-// macOS needs 16x16 b&w cursors. TODO: is that still the case?
-//
 auto available_cursors = std::array
 {
-#ifdef __APPLE__
-	cursor_data{ "normal.png",          "normal.png",      0,  0  },
-	cursor_data{ "wait-alt.png",        "wait.png",        0,  0  },
-	cursor_data{ "ibeam.png",           "ibeam.png",       14, 14 },
-	cursor_data{ "move.png",            "move.png",        0,  0  },
-	cursor_data{ "attack.png",          "attack.png",      0,  0  },
-	cursor_data{ "select.png",          "select.png",      0,  0  },
-	cursor_data{ "move_drag_alt.png",   "move_drag.png",   2,  20 },
-	cursor_data{ "attack_drag_alt.png", "attack_drag.png", 3,  22 },
-	cursor_data{ "no_cursor.png",       "",                0,  0  }
-#else
 	cursor_data{ "normal.png",          "normal.png",      0,  0  },
 	cursor_data{ "wait.png",            "wait.png",        0,  0  },
 	cursor_data{ "ibeam.png",           "ibeam.png",       14, 14 },
 	cursor_data{ "move.png",            "move.png",        0,  0  },
-	cursor_data{ "attack.png",          "attack.png",      0,  0  },
-	cursor_data{ "select.png",          "select.png",      0,  0  },
+	cursor_data{ "attack.png",          "attack.png",      2,  2  },
+	cursor_data{ "select.png",          "select.png",      10, 2  },
 	cursor_data{ "move_drag.png",       "move_drag.png",   2,  20 },
 	cursor_data{ "attack_drag.png",     "attack_drag.png", 3,  22 },
 	cursor_data{ "no_cursor.png",       "",                0,  0  }
-#endif
 };
 
 static_assert(available_cursors.size() == cursor::NUM_CURSORS);
@@ -95,15 +82,10 @@ SDL_Cursor* create_cursor(const surface& surf)
 	}
 
 	// The width must be a multiple of 8 (SDL requirement)
-
-#ifdef __APPLE__
-	std::size_t cursor_width = 16;
-#else
 	std::size_t cursor_width = surf->w;
 	if((cursor_width % 8) != 0) {
 		cursor_width += 8 - (cursor_width % 8);
 	}
-#endif
 
 	std::vector<uint8_t> data((cursor_width * surf->h) / 8, 0);
 	std::vector<uint8_t> mask(data.size(), 0);
@@ -137,21 +119,29 @@ SDL_Cursor* create_cursor(const surface& surf)
 SDL_Cursor* get_cursor(cursor::CURSOR_TYPE type)
 {
 	const bool use_color = use_color_cursors();
+	const int scale = prefs::get().scale_cursors() ? video::get_pixel_scale() : 1;
 	cursor_data& data = available_cursors[type];
 
-	if(data.cursor == nullptr || boost::indeterminate(data.is_color) || data.is_color != use_color) {
+	if(data.cursor == nullptr || boost::indeterminate(data.is_color) || data.is_color != use_color || data.scale != scale) {
 		static const std::string color_prefix = "cursors/";
 		static const std::string bw_prefix = "cursors-bw/";
 
 		if(use_color) {
 			surface surf = image::get_surface(color_prefix + data.image_color);
-			data.cursor.reset(SDL_CreateColorCursor(surf, data.hot_x, data.hot_y));
+			if(surf != nullptr && scale > 1) {
+				surf = scale_surface_sharp(surf, surf->w * scale, surf->h * scale);
+			}
+			data.cursor.reset(SDL_CreateColorCursor(surf, data.hot_x * scale, data.hot_y * scale));
 		} else {
 			surface surf = image::get_surface(bw_prefix + data.image_bw);
+			if(surf != nullptr && scale > 1) {
+				surf = scale_surface_sharp(surf, surf->w * scale, surf->h * scale);
+			}
 			data.cursor.reset(create_cursor(surf));
 		}
 
 		data.is_color = use_color;
+		data.scale = scale;
 	}
 
 	return data.cursor.get();

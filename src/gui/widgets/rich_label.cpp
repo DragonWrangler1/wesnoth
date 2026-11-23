@@ -145,44 +145,25 @@ void rich_label::add_link(
 	DBG_GUI_RL << "origin: " << origin;
 	DBG_GUI_RL << "width: " << img_width;
 
-	point t_start, t_end;
-
-	setup_text_renderer(tshape, init_w_ - origin.x - img_width);
-	t_start = origin + get_xy_from_offset(utf8::size(tshape.get_text()));
-	DBG_GUI_RL << "link text start:" << t_start;
-
+	const unsigned start = utf8::size(tshape.get_text());
 	std::string link_text = name.empty() ? dest : name;
 	add_text_with_attribute(tshape, link_text, "color", link_color_.to_hex_string());
+	const unsigned end = utf8::size(tshape.get_text());
 
+	// Measure with the link text added, so a link that wraps as a whole starts on the next line.
 	setup_text_renderer(tshape, init_w_ - origin.x - img_width);
-	t_end.x = origin.x + get_xy_from_offset(utf8::size(tshape.get_text())).x;
-	DBG_GUI_RL << "link text end:" << t_end;
 
 	// TODO link after right aligned images
 
-	// Add link
-	if(t_end.x > t_start.x) {
-		rect link_rect{ t_start, point{t_end.x - t_start.x, font::get_max_height(font_size_) }};
+	// Add a rect for each line of the link text, ending at that line's last character.
+	// Pango's lines are used rather than comparing x positions, since a link starting at
+	// the left edge (eg in a table cell) can wrap and still end to the right of where it started.
+	// GitHub #11718
+	const int text_height = font::get_max_height(font_size_);
+	for(const auto& [line_start, line_end_x] : font::get_text_renderer().get_line_spans(start, end)) {
+		rect link_rect{ origin + line_start, point{ line_end_x - line_start.x, text_height } };
 		links_.emplace_back(link_rect, dest);
-
 		DBG_GUI_RL << "added link at rect: " << link_rect;
-
-	} else {
-		//link straddles two lines, break into two rects
-		int text_height = font::get_max_height(font_size_);
-
-		point t_size(size_.x - t_start.x - (origin.x == 0 ? img_width : 0), t_end.y - t_start.y);
-		point link_start2(origin.x, t_start.y + font::get_line_spacing_factor() * text_height);
-		point t_size2(t_end.x, t_end.y - t_start.y);
-
-		rect link_rect{ t_start, point{ t_size.x, text_height } };
-		rect link_rect2{ link_start2, point{ t_size2.x, text_height } };
-
-		links_.emplace_back(link_rect, dest);
-		links_.emplace_back(link_rect2, dest);
-
-		DBG_GUI_RL << "added link at rect 1: " << link_rect;
-		DBG_GUI_RL << "added link at rect 2: " << link_rect2;
 	}
 }
 
@@ -538,7 +519,7 @@ std::pair<std::vector<rich_label::shape_ptr>, point> rich_label::get_parsed_text
 					shapes.emplace_back(std::move(curr_item));
 				}
 
-				curr_item = new_text_shape(pos, init_width - pos.x - float_size.x);
+				curr_item = new_text_shape(pos, init_width - (pos.x - origin.x) - float_size.x);
 				new_text_block = false;
 			}
 
@@ -716,7 +697,7 @@ std::pair<std::vector<rich_label::shape_ptr>, point> rich_label::get_parsed_text
 	if(finalize) {
 		for(const auto& entry : links_) {
 			shapes.emplace_back(std::make_unique<rectangle_shape>(
-				entry.first.x, entry.first.y, entry.first.w, entry.first.h,
+				rect{ entry.first.x, entry.first.y, entry.first.w, entry.first.h },
 				color_t(255, 180, 0, 255)));
 		}
 	}
@@ -833,7 +814,7 @@ void rich_label::signal_handler_left_button_click(bool& handled)
 	DBG_GUI_RL << "(mouse) " << mouse;
 	DBG_GUI_RL << "link count :" << links_.size();
 
-	std::optional<std::string> click_target;
+	utils::optional<std::string> click_target;
 	for(const auto& entry : links_) {
 		DBG_GUI_RL << "link " << entry.second;
 

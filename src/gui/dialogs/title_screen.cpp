@@ -28,6 +28,7 @@
 #include "gui/dialogs/achievements_dialog.hpp"
 #include "gui/dialogs/core_selection.hpp"
 #include "gui/dialogs/debug_clock.hpp"
+#include "gui/dialogs/end_credits.hpp"
 #include "gui/dialogs/help_browser.hpp"
 #include "gui/dialogs/lua_interpreter.hpp"
 #include "gui/dialogs/message.hpp"
@@ -189,6 +190,9 @@ void title_screen::init_callbacks()
 
 	register_hotkey(hotkey::TITLE_SCREEN__CORES,
 		[this](auto&&...) { button_callback_cores(); return true; });
+
+	register_hotkey(hotkey::TITLE_SCREEN__CREDITS,
+		[](auto&&...) { dialogs::end_credits::display(); return true; });
 
 	register_hotkey(hotkey::LUA_CONSOLE,
 		[](auto&&...) { show_lua_console(); return true; });
@@ -495,7 +499,7 @@ void title_screen::hotkey_callback_select_tests()
 
 void title_screen::show_preferences()
 {
-	gui2::dialogs::preferences_dialog pref_dlg;
+	gui2::dialogs::preferences_dialog pref_dlg(pref_constants::VIEW_DEFAULT, true);
 	pref_dlg.show();
 	if (pref_dlg.get_retval() == RELOAD_UI) {
 		set_retval(RELOAD_UI);
@@ -530,7 +534,7 @@ void title_screen::button_callback_multiplayer()
 
 		const auto res = dlg.get_choice();
 
-		if(res == decltype(dlg)::choice::HOST && prefs::get().mp_server_warning_disabled() < 2) {
+		if(res == decltype(dlg)::choice::HOST && !gui2::dialogs::mp_host_game_prompt::get_do_not_show_again()) {
 			if(!gui2::dialogs::mp_host_game_prompt::execute()) {
 				continue;
 			}

@@ -15,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wesnoth\n"
 "Report-Msgid-Bugs-To: https://bugs.wesnoth.org/\n"
-"POT-Creation-Date: 2026-06-22 22:15-0500\n"
-"PO-Revision-Date: 2025-11-03 13:28+0100\n"
+"POT-Creation-Date: 2026-08-02 22:45-0500\n"
+"PO-Revision-Date: 2026-06-19 14:31+0200\n"
 "Last-Translator: Adrian Chaves <adrian@chaves.io>\n"
 "Language-Team: Galician <kde-i18n-doc@kde.org>\n"
 "Language: gl\n"
@@ -24,7 +24,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.8\n"
+"X-Generator: Poedit 3.9\n"
 
 #. [time]: id=underground
 #. [editor_times]: id=underground
@@ -210,15 +210,6 @@ msgstr "sanda +12"
 #. [heals]: id=healing
 #. only exists in UtBS, but is the same wording as heals+8 with a bigger number
 #: data/campaigns/Under_the_Burning_Suns/utils/abilities.cfg:784
-#, fuzzy
-#| msgid ""
-#| "This unit combines herbal remedies with magic to heal units more quickly "
-#| "than is normally possible on the battlefield.\n"
-#| "\n"
-#| "A unit cared for by this healer may heal up to 8 HP per turn, or stop "
-#| "poison from taking effect for that turn.\n"
-#| "This ability will not cure an affected unit of poison, however, only "
-#| "delay its effect."
 msgid ""
 "This unit combines herbal remedies with magic to heal units more quickly "
 "than is normally possible on the battlefield.\n"
@@ -231,8 +222,8 @@ msgstr ""
 "Esta unidade combina remedios de herbas con maxia para sandar ás unidades "
 "máis rápido do normal no campo de batalla.\n"
 "\n"
-"Unha unidade coidada por esta pode sandar ata oito puntos de vida por rolda, "
-"ou evitar que o veleno lle afecte durante esa rolda.\n"
+"Unha unidade coidada por esta curandeira pode sandar ata oito puntos de vida "
+"por rolda, ou evitar que o veleno lle afecte durante esa quenda.\n"
 "Esta habilidade non pode curar a unha unidade envelenada, só atrasar os "
 "efectos do veleno."
 
@@ -247,45 +238,33 @@ msgstr ""
 
 #. [lua]: set_status
 #: data/campaigns/Under_the_Burning_Suns/utils/abilities.cfg:2133
-#, fuzzy
-#| msgid "female^stunned"
 msgid "female^poisoned"
-msgstr "atordada"
+msgstr "envelenada"
 
 #. [lua]: set_status
 #: data/campaigns/Under_the_Burning_Suns/utils/abilities.cfg:2133
-#, fuzzy
-#| msgid "poison"
 msgid "poisoned"
-msgstr "velenoso"
+msgstr "envelenado"
 
 #. [lua]: set_status
 #: data/campaigns/Under_the_Burning_Suns/utils/abilities.cfg:2135
-#, fuzzy
-#| msgid "female^slow"
 msgid "female^slowed"
-msgstr "lenta"
+msgstr "minorada"
 
 #. [lua]: set_status
 #: data/campaigns/Under_the_Burning_Suns/utils/abilities.cfg:2135
-#, fuzzy
-#| msgid "slow"
 msgid "slowed"
-msgstr "lento"
+msgstr "minorado"
 
 #. [lua]: set_status
 #: data/campaigns/Under_the_Burning_Suns/utils/abilities.cfg:2136
-#, fuzzy
-#| msgid "female^resilient"
 msgid "female^petrified"
-msgstr "resistente"
+msgstr "petrificada"
 
 #. [lua]: set_status
 #: data/campaigns/Under_the_Burning_Suns/utils/abilities.cfg:2136
-#, fuzzy
-#| msgid "petrifies"
 msgid "petrified"
-msgstr "petrifica"
+msgstr "petrificado"
 
 #. [artifact]
 #. [chance]
@@ -354,7 +333,7 @@ msgstr "ocúltase"
 
 #. [drains]: id=drains
 #: data/campaigns/World_Conquest/resources/strings/mainline.cfg:23
-#: data/core/macros/weapon_specials.cfg:183
+#: data/core/macros/weapon_specials.cfg:184
 msgid "drains"
 msgstr "absorbe"
 
@@ -392,7 +371,7 @@ msgstr "asexante nocturno"
 
 #. [poison]: id=poison
 #: data/campaigns/World_Conquest/resources/strings/mainline.cfg:50
-#: data/core/macros/weapon_specials.cfg:205
+#: data/core/macros/weapon_specials.cfg:206
 msgid "poison"
 msgstr "velenoso"
 
@@ -2459,7 +2438,7 @@ msgstr ""
 "    • Bitok\n"
 "    • Borstep\n"
 "    • Farzi\n"
-"    • Jotha: Unha gran capital fortificada dos sirénidos locais ao sur de "
+"    • Jotha: Unha gran capital fortificada dos sirenios locais ao sur de "
 "Bitok.\n"
 "    • Lmarig\n"
 "    • Melmog\n"
@@ -3268,15 +3247,6 @@ msgstr ""
 
 #. [topic]: id=movement
 #: data/core/help.cfg:264
-#, fuzzy
-#| msgid ""
-#| "Another thing to keep in mind while moving is <i>zones of control</i>. "
-#| "Each unit — except for level 0 units — generates a zone of control in the "
-#| "hexes immediately surrounding it, and any enemy unit entering those hexes "
-#| "immediately ends its movement. Learning how to use zones of control to "
-#| "your advantage is an important part of Wesnoth, as only <ref "
-#| "dst='ability_skirmisherskirmisher'>skirmishers</ref> can ignore zones of "
-#| "control."
 msgid ""
 "Another thing to keep in mind while moving is <i>zones of control</i>. Each "
 "unit — except for level 0 units — generates a zone of control in the hexes "
@@ -3287,11 +3257,10 @@ msgid ""
 msgstr ""
 "Outra cousa que debes ter en conta ao moverte son as <i>zonas de control</"
 "i>. Cada unidade —agás as de nivel 0— xera unha zona de control nos "
-"hexágonos inmediatamente adxacentes, e calquera unidade inimiga que entre "
-"neses hexágonos verá o seu movemento rematado de inmediato. Aprender a "
-"sacarlle partido ás zonas de control é unha parte importante do xogo, xa que "
-"só os <ref dst='ability_skirmisherskirmisher'>guerrilleiros</ref> poden "
-"ignoralas."
+"hexágonos ca rodean, e calquera unidade inimiga que entre neses hexágonos "
+"verá o seu movemento rematado de inmediato. Aprender a sacarlle partido ás "
+"zonas de control é unha parte importante do xogo, xa que só os <ref "
+"dst='ability_skirmisher'>guerrilleiros</ref> poden ignoralas."
 
 #. [topic]: id=movement
 #: data/core/help.cfg:266
@@ -4163,21 +4132,15 @@ msgstr ""
 
 #. [topic]: id=time_of_day
 #: data/core/help.cfg:501
-#, fuzzy
-#| msgid ""
-#| "Finally, units with the <ref "
-#| "dst='ability_illuminationilluminates'>illuminates</ref> ability and "
-#| "terrain features such as <ref dst='terrain_lava'>lava</ref> change the "
-#| "time of day bonus around them."
 msgid ""
 "Finally, units with the <ref dst='ability_illumination'>illuminates</ref> "
 "ability and terrain features such as <ref dst='terrain_lava'>lava</ref> "
 "change the time of day bonus around them."
 msgstr ""
 "Finalmente, as unidades coa habilidade <ref "
-"dst='ability_illuminationilluminates'>iluminar</ref> e certos elementos do "
-"terreo, como a <ref dst='terrain_lava'>lava</ref>, modifican o bono da hora "
-"do día ao seu redor."
+"dst='ability_illumination'>iluminar</ref> e certos elementos do terreo, como "
+"a <ref dst='terrain_lava'>lava</ref>, modifican o bono da hora do día ao seu "
+"redor."
 
 #. [topic]: id=healing
 #: data/core/help.cfg:508
@@ -4217,28 +4180,17 @@ msgstr ""
 
 #. [topic]: id=healing
 #: data/core/help.cfg:513
-#, fuzzy
-#| msgid ""
-#| "• <ref dst='ability_regeneratesregenerates'>Regeneration</ref>: Certain "
-#| "units (such as trolls) will automatically heal 8HP every turn. If the "
-#| "unit is poisoned, the poison will be cured instead."
 msgid ""
 "• <ref dst='ability_regenerates_8'>Regeneration</ref>: Certain units (such "
 "as trolls) will automatically heal 8HP every turn. If the unit is poisoned, "
 "the poison will be cured instead."
 msgstr ""
-"• <ref dst='ability_regeneratesregenerates'>Rexeneración'</ref>: Certas "
-"unidades (coma os troles) sandan oito puntos de vida automaticamente cada "
-"rolda, Se a unidade está envelenada, o veleno curarase no canto diso."
+"• <ref dst='ability_regenerates_8'>Rexeneración'</ref>: Certas unidades "
+"(coma os troles) sandan oito puntos de vida automaticamente cada rolda, Se a "
+"unidade está envelenada, o veleno curarase no canto diso."
 
 #. [topic]: id=healing
 #: data/core/help.cfg:514
-#, fuzzy
-#| msgid ""
-#| "• <b>Healing units</b>: Units with the <ref dst='ability_healingheals "
-#| "+4'>Heals</ref> ability will heal each allied adjacent unit, usually <ref "
-#| "dst='ability_healingheals +4'>4HP</ref> or <ref dst='ability_healingheals "
-#| "+8'>8HP</ref> per turn, or prevent Poison from causing that unit damage."
 msgid ""
 "• <b>Healing units</b>: Units with the <ref dst='ability_heals_4'>Heals</"
 "ref> ability will heal each allied adjacent unit, usually <ref "
@@ -4246,26 +4198,20 @@ msgid ""
 "turn, or prevent Poison from causing that unit damage."
 msgstr ""
 "• <b>Unidades de curación</b>: As unidades coa habilidade <ref "
-"dst='ability_healingheals +4'>Cura</ref> curarán a cada unidade adxacente "
-"aliada, normalmente <ref dst='ability_healingheals +4'>4 Ptos. de Vida</ref> "
-"ou <ref dst='ability_healingheals +8'>8 Ptos. de Vida</ref> por quenda, ou "
-"evitarán que o Veleno lles afecte."
+"dst='ability_heals_4'>Cura</ref> curarán a cada unidade adxacente aliada, "
+"normalmente <ref dst='ability_heals_4'>4 Ptos. de Vida</ref> ou <ref "
+"dst='ability_healingheals +8'>8 Ptos. de Vida</ref> por quenda, ou evitarán "
+"que o Veleno lles afecte."
 
 #. [topic]: id=healing
 #: data/core/help.cfg:515
-#, fuzzy
-#| msgid ""
-#| "• <b>Curing units</b>: Units with the <ref "
-#| "dst='ability_curingcures'>cures</ref> ability will cure Poison in all "
-#| "allied adjacent units (in preference to healing, if it has that ability "
-#| "as well)."
 msgid ""
 "• <b>Curing units</b>: Units with the <ref dst='ability_cures'>cures</ref> "
 "ability will cure Poison in all allied adjacent units (in preference to "
 "healing, if it has that ability as well)."
 msgstr ""
 "• <b>Cura de unidades</b>: As unidades coa habilidade <ref "
-"dst='ability_curingcures'>curas</ref> curarán o veleno en todas as unidades "
+"dst='ability_cures'>curar</ref> eliminarán o veleno en tódalas unidades "
 "adxacentes aliadas (en lugar de curar, se tamén ten esa habilidade)."
 
 #. [topic]: id=healing
@@ -4464,7 +4410,7 @@ msgid ""
 msgstr ""
 "Unha excepción notable son os terreos de ponte, como <i>pontes sobre augas "
 "baixas</i>, <i>vaos</i> e <i>pontes sobre abismos</i>. Os vaos son "
-"facilmente transitables tanto para sirénidos como para humanos — todas as "
+"facilmente transitables tanto para sirenios como para humanos — todas as "
 "unidades que se moven por un vao gozan da mellor defensa e do mellor "
 "movemento entre as augas planas e as augas baixas, en lugar do peor "
 "movemento dos dous. Do mesmo xeito, as pontes sobre abismos son transitables "
@@ -5185,6 +5131,8 @@ msgid ""
 "A nearby enemy’s <i>diversion</i> ability is reducing this attack’s accuracy "
 "by 20%."
 msgstr ""
+"A habilidade de <i>distracción</i> dun inimigo próximo reduce a precisión "
+"deste ataque nun 20 %."
 
 #. [leadership]: id=leadership
 #: data/core/macros/abilities.cfg:210
@@ -5308,6 +5256,8 @@ msgid ""
 "This unit can burrow under loose dirt, sand, or leaves, concealing itself if "
 "it does not change location."
 msgstr ""
+"Esta unidade pode escavar baixo terra solta, area ou follas, agochándose se "
+"non cambia de localización."
 
 #. [hides]: id=nightstalk
 #: data/core/macros/abilities.cfg:339
@@ -6537,7 +6487,7 @@ msgstr ""
 "pero só cando se usa en combate."
 
 #. [drains]: id=drains
-#: data/core/macros/weapon_specials.cfg:184
+#: data/core/macros/weapon_specials.cfg:185
 msgid ""
 "This unit drains health from living units, healing itself for half the "
 "amount of damage it deals (rounded down)."
@@ -6546,12 +6496,12 @@ msgstr ""
 "inflixe (redondeado cara abaixo)."
 
 #. [firststrike]: id=firststrike
-#: data/core/macros/weapon_specials.cfg:194
+#: data/core/macros/weapon_specials.cfg:195
 msgid "first strike"
 msgstr "primeiro golpe"
 
 #. [firststrike]: id=firststrike
-#: data/core/macros/weapon_specials.cfg:195
+#: data/core/macros/weapon_specials.cfg:196
 msgid ""
 "This unit always strikes first with this attack, even if they are defending."
 msgstr ""
@@ -6559,7 +6509,7 @@ msgstr ""
 "sendo atacada."
 
 #. [poison]: id=poison
-#: data/core/macros/weapon_specials.cfg:206
+#: data/core/macros/weapon_specials.cfg:207
 msgid ""
 "This attack poisons living targets. Poisoned units lose 8 HP every turn "
 "until they are cured or are reduced to 1 HP. Poison cannot, of itself, kill "
@@ -6570,12 +6520,12 @@ msgstr ""
 "vida. O veleno por si só non pode matar unha unidade."
 
 #. [stun]: id=stun
-#: data/core/macros/weapon_specials.cfg:216
+#: data/core/macros/weapon_specials.cfg:217
 msgid "stun"
 msgstr "atordar"
 
 #. [stun]: id=stun
-#: data/core/macros/weapon_specials.cfg:217
+#: data/core/macros/weapon_specials.cfg:218
 msgid ""
 "This attack hits so hard that the opponent is dazed and can no longer "
 "enforce a zone of control. The effect wears off on the opponent’s next turn."
@@ -6585,7 +6535,7 @@ msgstr ""
 "opoñente."
 
 #. [stun]: id=stun
-#: data/core/macros/weapon_specials.cfg:218
+#: data/core/macros/weapon_specials.cfg:219
 msgid ""
 "This unit is able to stun its enemies, disrupting their zones of control."
 msgstr ""
@@ -6593,12 +6543,12 @@ msgstr ""
 "de control."
 
 #. [damage_type]: id=arcane_damage
-#: data/core/macros/weapon_specials.cfg:227
+#: data/core/macros/weapon_specials.cfg:228
 msgid "arcane"
 msgstr "arcano"
 
 #. [damage_type]: id=arcane_damage
-#: data/core/macros/weapon_specials.cfg:228
+#: data/core/macros/weapon_specials.cfg:229
 msgid ""
 "This attack combines the arcane type with the type of weapon used so that "
 "resistance to the arcane type does not penalize the user."
@@ -6607,7 +6557,7 @@ msgstr ""
 "resistencia ao tipo arcano non penalice ao usuario."
 
 #. [damage_type]: id=arcane_damage
-#: data/core/macros/weapon_specials.cfg:229
+#: data/core/macros/weapon_specials.cfg:230
 msgid ""
 "This unit can use the arcane type when the opponent is particularly "
 "sensitive to it in relation to the weapon on which it is applied."
@@ -7696,17 +7646,17 @@ msgstr ""
 #. [race]: id=merman
 #: data/core/units.cfg:273
 msgid "race^Merman"
-msgstr "Sirénido"
+msgstr "Tritón"
 
 #. [race]: id=merman
 #: data/core/units.cfg:274
 msgid "race^Mermaid"
-msgstr "Sirénida"
+msgstr "Serea"
 
 #. [race]: id=merman
 #: data/core/units.cfg:275
 msgid "race^Merfolk"
-msgstr "Sirénidos"
+msgstr "Sirenios"
 
 #. [race]: id=merman
 #: data/core/units.cfg:276
@@ -7721,12 +7671,12 @@ msgid ""
 "ocean. They are typically wary of dry land, as they are awkward and clumsy "
 "there and they struggle greatly to move over rough or forested terrain."
 msgstr ""
-"Os sirénidos son unha enigmática especie que a simple vista podería "
+"Os sirenios son unha enigmática especie que a simple vista podería "
 "describirse coma un punto medio entre humano e peixe, e que conta con "
 "atributos de ambos os dous mundos. As súas fortes colas permítenlles "
 "desprazarse a unha gran velocidade nos ambientes acuáticos, mentres que as "
 "súas destras mans e maila súa intelixencia lles permiten desenvolver "
-"complexas ferramentas e trebellos. De natureza anfibia, os sirénidos poden "
+"complexas ferramentas e trebellos. De natureza anfibia, os sirenios poden "
 "respirar tanto na auga coma na superficie sen dificultade. Pero aínda que "
 "sexan capaces de sobrevivir en terra firme son máis rápidos e áxiles na auga "
 "e rara vez son vistos lonxe do océano. Adoitan ser cautelosos ao aventurarse "
@@ -7803,7 +7753,7 @@ msgstr ""
 "dálles unha ruta de escape por terra cando se ven atacados polos habitantes "
 "das profundidades, ao tempo que os mantén á marxe das criaturas terrestres e "
 "aéreas. Aínda que de corpo feble, os nagas son máis veloces e áxiles que os "
-"seus contrincantes. Ás veces teñen disputas territoriais cos sirénidos, pero "
+"seus contrincantes. Ás veces teñen disputas territoriais cos sirenios, pero "
 "xeralmente prefiren os pantanos e mailos ríos que o mar aberto."
 
 #. [race]: id=ogre
@@ -8213,7 +8163,7 @@ msgstr ""
 "albedrío, a fonte dos seus poderes individuais.\n"
 "\n"
 "A necromancia está case exclusivamente limitada aos humanos. Mesmo as lendas "
-"de razas con aptitudes máxicas como os elfos e os sirénidos falan de moi "
+"de razas con aptitudes máxicas como os elfos e os sirenios falan de moi "
 "poucos da súa especie que se afondaron nas artes escuras. Suponse que a "
 "maxia necromántica require unha gran adaptabilidade e unha mente flexible, "
 "extremos dos cales se atopan máis comúnmente nos humanos. O obxectivo final "
@@ -8566,7 +8516,7 @@ msgstr "Aliñamento:"
 #, fuzzy
 #| msgid "Required XP:"
 msgid "Required XP:"
-msgstr "Experiencia necesaria:"
+msgstr "Exp. necesaria:"
 
 #: src/help/help_topic_generators.cpp:664
 msgid "Attacks"

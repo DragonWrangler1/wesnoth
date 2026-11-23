@@ -58,6 +58,8 @@ struct preferences_list_defines
 	ADDPREF(bell_volume)
 	/** whether to show the map before being given a side in online multiplayer */
 	ADDPREF(blindfold_replay)
+	/** the most recently selected RNG mode in the campaign selection dialog */
+	ADDPREF(campaign_rng_mode)
 	/** the add-ons server name, ie: add-ons.wesnoth.org */
 	ADDPREF(campaign_server)
 	/** the number of lines of chat to display in-game */
@@ -129,6 +131,8 @@ struct preferences_list_defines
 	ADDPREF(history)
 	/** the most recent multiplayer server hostname */
 	ADDPREF(host)
+	/** changed hotkeys */
+	ADDPREF(hotkey)
 	/** whether to play idle animations */
 	ADDPREF(idle_anim)
 	/** how frequently to play idle animations */
@@ -214,8 +218,6 @@ struct preferences_list_defines
 	ADDPREF(random_faction_mode)
 	/** whether to remember passwords typed into password fields */
 	ADDPREF(remember_password)
-	/** audio sample rate */
-	ADDPREF(sample_rate)
 	/** whether to save replays of games */
 	ADDPREF(save_replays)
 	/** the scroll speed */
@@ -252,8 +254,6 @@ struct preferences_list_defines
 	ADDPREF(skip_mp_replay)
 	/** whether to play non-UI sounds */
 	ADDPREF(sound)
-	/** audio buffer size */
-	ADDPREF(sound_buffer_size)
 	/** the volume for playing sounds */
 	ADDPREF(sound_volume)
 	/** list of the last selected single player modifications */
@@ -334,6 +334,10 @@ struct preferences_list_defines
 	ADDPREF(reach_map_enemy_color)
 	/** opacity of the reach map tint, 100 being 100% of the original image opacity, 0 being invisible */
 	ADDPREF(reach_map_tint_opacity)
+	/** opacity of the reach map darkening, 100 being 100% of the original image opacity, 0 being invisible */
+	ADDPREF(reach_map_darken_opacity)
+	/** whether to darken unreachable areas with textured or solid black */
+	ADDPREF(reach_map_darken_tex)
 	/** whether to play a sound when the game is ready to be started */
 	ADDPREF(ready_for_start_sound)
 	/** whether to show a notification when the game is ready to be started */
@@ -387,6 +391,8 @@ struct preferences_list_defines
 	ADDPREF(middle_click_scrolls)
 	/** whether moving the mouse to the sides of the window scrolls around the map */
 	ADDPREF(mouse_scrolling)
+	/** whether to scale mouse cursors by the pixel scale multiplier */
+	ADDPREF(scale_cursors)
 	/** whether to scroll to a unit when an action is taken */
 	ADDPREF(scroll_to_action)
 	/** keep scrolling when the mouse moves outside the wesnoth window */
@@ -399,6 +405,8 @@ struct preferences_list_defines
 	ADDPREF(show_deprecation)
 	/** whether to show an indicator above defenders when an attack misses */
 	ADDPREF(show_attack_miss_indicator)
+	/** whether to use SIMD hardware acceleration for pixel operations */
+	ADDPREF(simd_enabled)
 	/** whether to use a 12 hour vs 24 hours clock in various places on the UI */
 	ADDPREF(use_twelve_hour_clock_format)
 
@@ -418,6 +426,7 @@ struct preferences_list_defines
 		auto_save_max,
 		bell_volume,
 		blindfold_replay,
+		campaign_rng_mode,
 		campaign_server,
 		chat_lines,
 		chat_timestamp,
@@ -451,6 +460,7 @@ struct preferences_list_defines
 		hide_whiteboard,
 		history,
 		host,
+		hotkey,
 		idle_anim,
 		idle_anim_rate,
 		lobby_joins,
@@ -492,7 +502,6 @@ struct preferences_list_defines
 		pixel_scale,
 		random_faction_mode,
 		remember_password,
-		sample_rate,
 		save_replays,
 		scroll,
 		scroll_threshold,
@@ -511,7 +520,6 @@ struct preferences_list_defines
 		skip_ai_moves,
 		skip_mp_replay,
 		sound,
-		sound_buffer_size,
 		sound_volume,
 		sp_modifications,
 		stop_music_in_background,
@@ -540,12 +548,14 @@ struct preferences_list_defines
 		lobby_auto_open_whisper_windows,
 		middle_click_scrolls,
 		mouse_scrolling,
+		scale_cursors,
 		scroll_to_action,
 		scroll_when_mouse_outside,
 		show_all_units_in_help,
 		show_combat,
 		show_deprecation,
 		show_attack_miss_indicator,
+		simd_enabled,
 		use_twelve_hour_clock_format,
 		player_joins_sound,
 		player_joins_notif,
@@ -580,6 +590,8 @@ struct preferences_list_defines
 		addon_icons,
 		reach_map_border_opacity,
 		reach_map_tint_opacity,
+		reach_map_darken_opacity,
+		reach_map_darken_tex,
 		reach_map_color,
 		reach_map_enemy_color
 	)

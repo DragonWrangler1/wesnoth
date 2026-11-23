@@ -34,9 +34,12 @@
 #include "preferences/preferences.hpp"
 #include "video.hpp"
 
+#include <algorithm>
 #include <cassert>
+#include <cctype>
 #include <cstring>
 #include <stdexcept>
+#include <string_view>
 
 static lg::log_domain log_font("font");
 #define DBG_FT LOG_STREAM(debug, log_font)
@@ -85,6 +88,7 @@ pango_text::pango_text()
 	, maximum_width_(-1)
 	, characters_per_line_(0)
 	, maximum_height_(-1)
+	, multiline_(false)
 	, ellipse_mode_(PANGO_ELLIPSIZE_END)
 	, alignment_(PANGO_ALIGN_LEFT)
 	, maximum_length_(std::string::npos)
@@ -121,14 +125,32 @@ texture pango_text::render_texture(const rect& viewport)
 
 texture pango_text::render_and_get_texture()
 {
-	update_pixel_scale(); // TODO: this should be in recalculate()
 	recalculate();
 	return with_draw_scale(texture(create_surface()));
 }
 
+texture pango_text::render_and_get_texture(const rect& viewport)
+{
+	recalculate();
+
+	// Convert to render-space and limit to the area create_surface() would use.
+	rect area{
+		viewport.x * pixel_scale_,
+		viewport.y * pixel_scale_,
+		viewport.w * pixel_scale_,
+		viewport.h * pixel_scale_
+	};
+	area.clip(rect{0, 0, rect_.x + rect_.width, rect_.y + rect_.height});
+
+	if(area.empty()) {
+		return texture{};
+	}
+
+	return render_texture(area);
+}
+
 surface pango_text::render_surface(const rect& viewport)
 {
-	update_pixel_scale(); // TODO: this should be in recalculate()
 	recalculate();
 	return create_surface(viewport);
 }
@@ -153,7 +175,6 @@ point pango_text::to_draw_scale(const point& p) const
 
 point pango_text::get_size()
 {
-	update_pixel_scale(); // TODO: this should be in recalculate()
 	recalculate();
 
 	return to_draw_scale({rect_.width, rect_.height});
@@ -237,6 +258,52 @@ point pango_text::get_cursor_pos_from_index(const unsigned offset) const
 	return to_draw_scale({PANGO_PIXELS(rect.x), PANGO_PIXELS(rect.y)});
 }
 
+std::vector<std::pair<point, int>> pango_text::get_line_spans(const unsigned start, const unsigned end) const
+{
+	recalculate();
+
+	const int start_index = get_byte_index(start);
+	const int end_index = get_byte_index(end);
+	const std::string_view text = pango_layout_get_text(layout_.get());
+
+	// Byte index of the UTF-8 character before index. Continuation bytes have
+	// the form 10xxxxxx, ie (byte & 0xC0) == 0x80.
+	const auto prev_char = [&text](int index) {
+		do {
+			--index;
+		} while(index > 0 && (static_cast<unsigned char>(text[index]) & 0xC0) == 0x80);
+		return index;
+	};
+
+	std::vector<std::pair<point, int>> res;
+
+	using layout_iterator = std::unique_ptr<PangoLayoutIter, std::function<void(PangoLayoutIter*)>>;
+	layout_iterator i{pango_layout_get_iter(layout_.get()), pango_layout_iter_free};
+
+	do {
+		const PangoLayoutLine* ll = pango_layout_iter_get_line_readonly(i.get());
+		const int span_start = std::max(start_index, ll->start_index);
+		int span_end = std::min(end_index, ll->start_index + ll->length);
+
+		// Leave out the whitespace where the line wraps. Only ASCII whitespace is checked;
+		// the last byte of a multi-byte character is never ASCII.
+		while(span_end > span_start && std::isspace(static_cast<unsigned char>(text[span_end - 1]))) {
+			--span_end;
+		}
+
+		if(span_end > span_start) {
+			// The cursor position after the last character may be on the next line,
+			// so use the trailing edge of that character instead
+			PangoRectangle last_rect;
+			pango_layout_index_to_pos(layout_.get(), prev_char(span_end), &last_rect);
+
+			res.emplace_back(get_cursor_pos_from_index(span_start), to_draw_scale(PANGO_PIXELS(last_rect.x + last_rect.width)));
+		}
+	} while(pango_layout_iter_next_line(i.get()));
+
+	return res;
+}
+
 std::size_t pango_text::get_maximum_length() const
 {
 	return maximum_length_;
@@ -280,12 +347,12 @@ point pango_text::get_column_line(const point& position) const
 	// Get the index of the character.
 	const auto [index, trailing, _] = xy_to_index(position);
 
-	// Extract the line and the offset in pixels in that line.
-	auto [line, offset] = index_to_line_x(index, trailing);
-	offset = PANGO_PIXELS(offset);
-
-	// Now convert this offset to a column, this way is a bit hacky but haven't
-	// found a better solution yet.
+	// Find the line containing it.
+	const int line = index_to_line_x(index, trailing).first;
+	const PangoLayoutLine* ll = pango_layout_get_line_readonly(layout_.get(), line);
+	if(!ll) {
+		return point(0, 0);
+	}
 
 	/**
 	 * @todo There's still a bug left. When you select a text which is in the
@@ -295,14 +362,17 @@ point pango_text::get_column_line(const point& position) const
 	 * text is available. Haven't found what the best thing to do would be.
 	 * Until that time leave it as is.
 	 */
-	for(std::size_t i = 0; ;++i) {
-		const int pos = get_cursor_position(i, line).x;
 
-		if(pos == offset) {
-			// FIXME: return statement only inside if block.
-			return point(i, line);
-		}
-	}
+	// Convert the byte index to a column by counting the characters from the
+	// start of the line. A non-zero trailing means the position is on the
+	// trailing edge of the character, so the cursor goes after it.
+	const std::string_view text = pango_layout_get_text(layout_.get());
+	const std::string_view line_text = text.substr(ll->start_index, ll->length);
+
+	const std::size_t char_start = std::max(index, ll->start_index) - ll->start_index;
+	const std::size_t cursor = char_start + utf8::index(line_text.substr(std::min(char_start, line_text.size())), trailing);
+
+	return point(static_cast<int>(utf8::size(line_text.substr(0, std::min(cursor, line_text.size())))), line);
 }
 
 std::tuple<int, int, bool> pango_text::xy_to_index(const point& position) const
@@ -311,7 +381,9 @@ std::tuple<int, int, bool> pango_text::xy_to_index(const point& position) const
 
 	// Get the index of the character.
 	int index, trailing;
-	int res = pango_layout_xy_to_index(layout_.get(), position.x * PANGO_SCALE, position.y * PANGO_SCALE, &index, &trailing);
+	// The layout is in render-space, position is in draw-space.
+	int res = pango_layout_xy_to_index(layout_.get(),
+		position.x * pixel_scale_ * PANGO_SCALE, position.y * pixel_scale_ * PANGO_SCALE, &index, &trailing);
 	// res is gboolean
 	return { index, trailing, res != 0 };
 }
@@ -368,7 +440,7 @@ pango_text& pango_text::set_family_class(font::family_class fclass)
 
 pango_text& pango_text::set_font_size(unsigned font_size)
 {
-	font_size = prefs::get().font_scaled(font_size) * pixel_scale_;
+	font_size = prefs::get().font_scaled(font_size);
 
 	if(font_size != font_size_) {
 		font_size_ = font_size;
@@ -399,8 +471,6 @@ pango_text& pango_text::set_foreground_color(const color_t& color)
 
 pango_text& pango_text::set_maximum_width(int width)
 {
-	width *= pixel_scale_;
-
 	if(width <= 0) {
 		width = -1;
 	}
@@ -426,23 +496,15 @@ pango_text& pango_text::set_characters_per_line(const unsigned characters_per_li
 
 pango_text& pango_text::set_maximum_height(int height, bool multiline)
 {
-	height *= pixel_scale_;
-
 	if(height <= 0) {
 		height = -1;
 		multiline = false;
 	}
 
-	if(height != maximum_height_) {
-		// assert(context_);
-
+	if(height != maximum_height_ || multiline != multiline_) {
 		// The maximum height is handled in this class' calculate_size() method.
-		//
-		// Although we also pass it to PangoLayout if multiline is true, the documentation of pango_layout_set_height
-		// makes me wonder whether we should avoid that function completely. For example, "at least one line is included
-		// in each paragraph regardless" and "may be changed in future, file a bug if you rely on the current behavior".
-		pango_layout_set_height(layout_.get(), !multiline ? -1 : height * PANGO_SCALE);
 		maximum_height_ = height;
+		multiline_ = multiline;
 		calculation_dirty_ = true;
 	}
 
@@ -457,13 +519,6 @@ pango_text& pango_text::set_ellipse_mode(const PangoEllipsizeMode ellipse_mode)
 		pango_layout_set_ellipsize(layout_.get(), ellipse_mode);
 		ellipse_mode_ = ellipse_mode;
 		calculation_dirty_ = true;
-	}
-
-	// According to the docs of pango_layout_set_height, the behavior is undefined if a height other than -1 is combined
-	// with PANGO_ELLIPSIZE_NONE. Wesnoth's code currently always calls set_ellipse_mode after set_maximum_height, so do
-	// the cleanup here. The code in calculate_size() will still apply the maximum height after Pango's calculations.
-	if(ellipse_mode_ == PANGO_ELLIPSIZE_NONE) {
-		pango_layout_set_height(layout_.get(), -1);
 	}
 
 	return *this;
@@ -523,7 +578,8 @@ pango_text& pango_text::set_add_outline(bool do_add)
 
 int pango_text::get_max_glyph_height() const
 {
-	p_font font{ get_font_families(font_class_), font_size_, font_style_ };
+	update_pixel_scale();
+	p_font font{ get_font_families(font_class_), font_size_ * pixel_scale_, font_style_ };
 
 	PangoFont* f = pango_font_map_load_font(
 		pango_cairo_font_map_get_default(),
@@ -541,32 +597,22 @@ int pango_text::get_max_glyph_height() const
 	return ceil(pango_units_to_double(ascent + descent) / pixel_scale_);
 }
 
-void pango_text::update_pixel_scale()
+void pango_text::update_pixel_scale() const
 {
 	const int ps = video::get_pixel_scale();
-	if (ps == pixel_scale_) {
-		return;
+	if(ps != pixel_scale_) {
+		pixel_scale_ = ps;
+		calculation_dirty_ = true;
 	}
-
-	font_size_ = (font_size_ / pixel_scale_) * ps;
-
-	if (maximum_width_ != -1) {
-		maximum_width_ = (maximum_width_ / pixel_scale_) * ps;
-	}
-
-	if (maximum_height_ != -1) {
-		maximum_height_ = (maximum_height_ / pixel_scale_) * ps;
-	}
-
-	calculation_dirty_ = true;
-	pixel_scale_ = ps;
 }
 
 void pango_text::recalculate() const
 {
 	// TODO: clean up this "const everything then mutable everything" mess.
-	// update_pixel_scale() should go in here. But it can't. Because things
-	// are declared const which are not const.
+
+	// The size calculation scales the font size and maximum width and height
+	// by the pixel scale, so make sure it's current first.
+	update_pixel_scale();
 
 	if(calculation_dirty_) {
 		assert(layout_ != nullptr);
@@ -580,7 +626,13 @@ PangoRectangle pango_text::calculate_size(PangoLayout& layout) const
 {
 	PangoRectangle size;
 
-	p_font font{ get_font_families(font_class_), font_size_, font_style_ };
+	// The font size and maximum width and height are stored in draw-space,
+	// but the layout is in render-space.
+	const unsigned font_size = font_size_ * pixel_scale_;
+	const int maximum_width_scaled = maximum_width_ == -1 ? -1 : maximum_width_ * pixel_scale_;
+	const int maximum_height = maximum_height_ == -1 ? -1 : maximum_height_ * pixel_scale_;
+
+	p_font font{ get_font_families(font_class_), font_size, font_style_ };
 	pango_layout_set_font_description(&layout, font.get());
 
 	int maximum_width = 0;
@@ -600,12 +652,23 @@ PangoRectangle pango_text::calculate_size(PangoLayout& layout) const
 		pango_font_metrics_unref(m);
 		g_object_unref(f);
 	} else {
-		maximum_width = maximum_width_;
+		maximum_width = maximum_width_scaled;
 	}
 
-	if(maximum_width_ != -1) {
-		maximum_width = std::min(maximum_width, maximum_width_);
+	if(maximum_width_scaled != -1) {
+		maximum_width = std::min(maximum_width, maximum_width_scaled);
 	}
+
+	// The maximum height is mostly handled below, rather than by Pango. Although
+	// we also pass it to the layout for multi-line text, the documentation of
+	// pango_layout_set_height possibly suggests that we should avoid that
+	// function completely. For example, "at least one line is included in each
+	// paragraph regardless" and "may be changed in future, file a bug if you
+	// rely on the current behavior". It also says the behaviour is undefined if
+	// a height other than -1 is combined with PANGO_ELLIPSIZE_NONE.
+	pango_layout_set_height(&layout, multiline_ && ellipse_mode_ != PANGO_ELLIPSIZE_NONE
+		? maximum_height * PANGO_SCALE
+		: -1);
 
 	pango_layout_set_width(&layout, maximum_width == -1
 		? -1
@@ -620,11 +683,11 @@ PangoRectangle pango_text::calculate_size(PangoLayout& layout) const
 
 	DBG_GUI_L << "pango_text::" << __func__
 		<< " text '" << gui2::debug_truncate(text_)
-		<< "' font_size " << font_size_
+		<< "' font_size " << font_size
 		<< " markedup_text " << markedup_text_
 		<< " font_style " << std::hex << font_style_ << std::dec
 		<< " maximum_width " << maximum_width
-		<< " maximum_height " << maximum_height_
+		<< " maximum_height " << maximum_height
 		<< " result " << size
 		<< ".";
 
@@ -636,14 +699,14 @@ PangoRectangle pango_text::calculate_size(PangoLayout& layout) const
 			<< ".";
 	}
 
-	// The maximum height is handled here instead of using the library - see the comments in set_maximum_height()
-	if(maximum_height_ != -1 && size.y + size.height > maximum_height_) {
+	// The maximum height is handled here instead of using the library - see the comments above
+	if(maximum_height != -1 && size.y + size.height > maximum_height) {
 		DBG_GUI_L << "pango_text::" << __func__
 			<< " text '" << gui2::debug_truncate(text_)
 			<< " ' height " << size.y + size.height
-			<< " greater as the wanted maximum of " << maximum_height_
+			<< " greater as the wanted maximum of " << maximum_height
 			<< ".";
-		size.height = maximum_height_ - std::max(0, size.y);
+		size.height = maximum_height - std::max(0, size.y);
 	}
 
 	return size;
@@ -742,6 +805,9 @@ void pango_text::render(PangoLayout& layout, const rect& viewport)
 
 		// Stroke path to draw outline.
 		cairo_stroke(cr);
+
+		// Stroking clears the current point, so move back to the top-left.
+		cairo_move_to(cr, -viewport.x, -viewport.y);
 	}
 
 	// Set main text color.
@@ -909,13 +975,6 @@ bool pango_text::validate_markup(std::string_view text, char** raw_text, std::st
 			<< "' has unescaped ampersands '&', escaped them.";
 
 	return true;
-}
-
-void pango_text::copy_layout_properties(PangoLayout& src, PangoLayout& dst)
-{
-	pango_layout_set_alignment(&dst, pango_layout_get_alignment(&src));
-	pango_layout_set_height(&dst, pango_layout_get_height(&src));
-	pango_layout_set_ellipsize(&dst, pango_layout_get_ellipsize(&src));
 }
 
 std::vector<std::string> pango_text::get_lines() const

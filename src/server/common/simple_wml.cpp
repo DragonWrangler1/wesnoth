@@ -58,7 +58,7 @@ char* uncompress_buffer(const string_span& input, string_span* span)
 		filter.push(stream);
 		state = 3;
 
-		const std::size_t chunk_size = input.size() * 10;
+		const std::size_t chunk_size = std::min(input.size() * 10, document::document_size_limit);
 		nalloc = chunk_size;
 		std::vector<char> buf(chunk_size);
 		state = 4;
@@ -256,10 +256,13 @@ node::node(document& doc, node* parent, const char** str, int depth) :
 			}
 
 			const int list_index = get_children(string_span(s, end - s));
-			check_ordered_children();
+			if(children_[list_index].second.size() > std::numeric_limits<unsigned short>::max()) {
+				throw error("too many child elements");
+			}
 
 			s = end + 1;
 
+			check_ordered_children();
 			children_[list_index].second.push_back(new node(doc, this, str, depth+1));
 			ordered_children_.emplace_back(list_index, children_[list_index].second.size() - 1);
 			check_ordered_children();
@@ -453,6 +456,9 @@ node& node::add_child_at(const char* name, std::size_t index)
 
 	const int list_index = get_children(name);
 	child_list& list = children_[list_index].second;
+	if(list.size() > std::numeric_limits<unsigned short>::max()) {
+		throw error("too many child elements");
+	}
 	if(index > list.size()) {
 		index = list.size();
 	}
@@ -473,6 +479,9 @@ node& node::add_child(const char* name)
 	const int list_index = get_children(name);
 	check_ordered_children();
 	child_list& list = children_[list_index].second;
+	if(list.size() > std::numeric_limits<unsigned short>::max()) {
+		throw error("too many child elements");
+	}
 	list.push_back(new node(*doc_, this));
 	ordered_children_.emplace_back(list_index, list.size() - 1);
 	check_ordered_children();
@@ -658,6 +667,9 @@ int node::get_children(const string_span& name)
 		}
 	}
 
+	if(children_.size() > std::numeric_limits<unsigned short>::max()) {
+		throw error("too many child elements");
+	}
 	children_.emplace_back(string_span(name), child_list());
 	return children_.size() - 1;
 }
@@ -1018,18 +1030,22 @@ document::~document()
 
 const char* document::dup_string(const char* str)
 {
-	const int len = strlen(str);
-	char* res = new char[len+1];
-	memcpy(res, str, len + 1);
+	return dup_string(string_span(str));
+}
+
+const char* document::dup_string(string_span str)
+{
+	char* res = new char[str.size() + 1];
+	std::memcpy(res, str.begin(), str.size());
+	res[str.size()] = '\0';
 	buffers_.push_back(res);
 	return res;
 }
 
 const char* document::esc_string(string_span str)
 {
-	char* res = string_span(utils::wml_escape_string(str)).duplicate();
-	buffers_.push_back(res);
-	return res;
+	const std::string escaped = utils::wml_escape_string(str);
+	return dup_string(string_span(escaped));
 }
 
 const char* document::output()

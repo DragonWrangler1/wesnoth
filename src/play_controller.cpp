@@ -342,6 +342,10 @@ void play_controller::reset_gamestate(const config& level, int replay_pos)
 
 	gui_->labels().set_team(nullptr);
 
+	// Item overlays (including their halos) are stored on the display, not the
+	// game state, so they need to be cleared here on reset. Refer GitHub #10866.
+	gui_->remove_overlays();
+
 	/* First destroy the old game state, then create the new one.
 	This is necessary to ensure that while the old AI manager is being destroyed,
 	all its member objects access the old manager instead of the new. */
@@ -1335,6 +1339,11 @@ play_controller::scoped_savegame_snapshot::~scoped_savegame_snapshot()
 
 void play_controller::show_objectives() const
 {
+	// The stored objectives text is rendered in the language that was active when it was
+	// generated, which may differ after loading a save. Regenerate it from the scenario's
+	// [objectives] WML so it uses the current language. GitHub #4505
+	refresh_objectives();
+
 	const team& t = gui_->viewing_team();
 	static const std::string no_objectives(_("No objectives available"));
 	std::string objectives = utils::interpolate_variables_into_string(t.objectives(), *gamestate_->get_game_data());
